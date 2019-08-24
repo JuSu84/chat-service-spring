@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,17 +15,24 @@ public class Message {
     @Id
     @GeneratedValue
     private long id;
-    private String author;
+
+    @ManyToOne
+    private Author author;
+
     @CreationTimestamp
     private LocalDateTime date;
 
-    private String text;
+    @UpdateTimestamp
+    private LocalDateTime updatedDate;
 
-    public String getAuthor() {
+    private String text;
+    private String thread;
+
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
@@ -34,6 +42,14 @@ public class Message {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public LocalDateTime getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(LocalDateTime updatedDate) {
+        this.updatedDate = updatedDate;
     }
 
     public long getId() {
@@ -50,5 +66,13 @@ public class Message {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getThread() {
+        return thread;
+    }
+
+    public void setThread(String thread) {
+        this.thread = thread;
     }
 }
